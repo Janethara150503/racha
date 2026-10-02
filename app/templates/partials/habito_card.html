@@ -1,25 +1,25 @@
 <article class="card" id="habito-{{ resumen.id }}">
   <div class="card__header">
-  <h3 class="card__title">{{ resumen.nombre }}</h3>
-  <div class="card__header-actions">
-    <button
-      class="card__edit"
-      data-habito-id="{{ resumen.id }}"
-      data-habito-nombre="{{ resumen.nombre }}"
-      data-habito-descripcion="{{ resumen.descripcion or '' }}"
-      onclick="abrirEdicionHabito(this)"
-      aria-label="Editar hábito"
-    >✎</button>
+    <h3 class="card__title">{{ resumen.nombre }}</h3>
+    <div class="card__header-actions">
+      <button
+        class="card__edit"
+        data-habito-id="{{ resumen.id }}"
+        data-habito-nombre="{{ resumen.nombre }}"
+        data-habito-descripcion="{{ resumen.descripcion or '' }}"
+        onclick="abrirEdicionHabito(this)"
+        aria-label="Editar hábito"
+      >✎</button>
 
-    <button
-      class="card__delete"
-      data-habito-id="{{ resumen.id }}"
-      data-habito-nombre="{{ resumen.nombre }}"
-      onclick="abrirConfirmacionEliminar(this)"
-      aria-label="Eliminar hábito"
-    >✕</button>
+      <button
+        class="card__delete"
+        data-habito-id="{{ resumen.id }}"
+        data-habito-nombre="{{ resumen.nombre }}"
+        onclick="abrirConfirmacionEliminar(this)"
+        aria-label="Eliminar hábito"
+      >✕</button>
+    </div>
   </div>
-</div>
 
   {% if resumen.descripcion %}
     <p class="card__desc">{{ resumen.descripcion }}</p>
@@ -53,4 +53,12 @@
   >
     {% if resumen.cumplido_hoy %}✓ Cumplido hoy{% else %}Marcar cumplido hoy{% endif %}
   </button>
+
+  <button
+    class="btn btn--ai"
+    hx-post="/habitos/{{ resumen.id }}/mensaje"
+    hx-target="#mensaje-{{ resumen.id }}"
+    hx-swap="innerHTML"
+  >✨ Generar mensaje</button>
+  <p id="mensaje-{{ resumen.id }}" class="card__mensaje-ia"></p>
 </article>
